@@ -51,7 +51,7 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo "==== Running compile quiz files (Windows) ===="
 	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH) 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz1 2>nul
-	@cmd /C "setlocal enabledelayedexpansion && set i=2 ^
+	@cmd /V:ON /C "setlocal enabledelayedexpansion && set i=2 ^
 	&& for %%f in ($(EZ_FILES)) do ( ^
 		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul ^
 		&& gcc $(EZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) ^

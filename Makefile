@@ -51,30 +51,29 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo "==== Running compile quiz files (Windows) ===="
 	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH) 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz1 2>nul
-	@cmd /V:ON /C "setlocal enabledelayedexpansion && set i=2 ^
-	&& for %%f in ($(EZ_FILES)) do ( ^
-		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul ^
-		&& gcc $(EZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) ^
-		&& echo Quiz !i!: %%f compile complete ^
-		&& set /a i=!i!+1 ^
-	) ^
-	&& for %%f in ($(MD_FILES)) do ( ^
-		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul ^
-		&& gcc $(MD_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) ^
-		&& echo Quiz !i!: %%f compile complete ^
-		&& set /a i=!i!+1 ^
-	) ^
-	&& for %%f in ($(CZ_FILES)) do ( ^
-		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul ^
-		&& if !i! == 8 ( ^
-			gcc $(LIB)$(PATH_SEP)special_test$(PATH_SEP)quiz8_test.c $(CZ_PATH)$(PATH_SEP)%%f $(LIB)$(PATH_SEP)utils.a -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) ^
-		) else ( ^
-			gcc $(CZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) ^
-		) ^
-		&& echo Quiz !i!: %%f compile complete ^
-		&& set /a i=!i!+1 ^
-	) ^
-	&& endlocal"
+	@set /a i=2 && \
+	for %%f in ($(EZ_FILES)) do ( \
+		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul && \
+		gcc $(EZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) && \
+		echo Quiz !i!: %%f compile complete && \
+		set /a i+=1 \
+	) && \
+	for %%f in ($(MD_FILES)) do ( \
+		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul && \
+		gcc $(MD_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) && \
+		echo Quiz !i!: %%f compile complete && \
+		set /a i+=1 \
+	) && \
+	for %%f in ($(CZ_FILES)) do ( \
+		$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul && \
+		if !i! == 8 ( \
+			gcc $(LIB)$(PATH_SEP)special_test$(PATH_SEP)quiz8_test.c $(CZ_PATH)$(PATH_SEP)%%f $(LIB)$(PATH_SEP)utils.a -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) \
+		) else ( \
+			gcc $(CZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) \
+		) && \
+		echo Quiz !i!: %%f compile complete && \
+		set /a i+=1 \
+	)
 else
 	@i=1; \
 	echo "==== Running compile quiz files (Unix) ===="; \

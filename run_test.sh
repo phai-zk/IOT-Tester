@@ -31,10 +31,6 @@ run_test_case() {
 	diff_output=$(diff -u $OUTPUT_PATH/quiz$QUIZ/user_output.txt $OUTPUT_PATH/quiz$QUIZ/test_output.txt)
 	status=$?
 
-	# Get the outputs and escape special characters
-	# local user_output=$(cat user_output.txt | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
-	# local test_output=$(cat test_output.txt | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
-
 	echo "================= OUTPUT TEST $test ===================="
 
 	if [ $status -eq 0 ]; then
@@ -237,4 +233,3 @@ else
 	test_traffics $QUIZ
 	echo "${BLUE}Log files are in $YOUR_FILES_PATH/quiz$QUIZ/log_$QUIZ.txt${NC}"
 fi
-

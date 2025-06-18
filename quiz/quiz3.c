@@ -17,3 +17,9 @@
 /*   anything else print "Both are equal"                               */
 /*──────────────────────────────────────────────────────────────────────*/
 
+#include <stdio.h>
+
+int	main(void) {
+    
+    return 0;
+}

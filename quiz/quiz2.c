@@ -12,3 +12,10 @@
 /*                                                                      */
 /*   In this part we want you to learn about Math                       */
 /*──────────────────────────────────────────────────────────────────────*/
+
+#include <stdio.h>
+
+int	main(void) {
+    
+    return 0;
+}

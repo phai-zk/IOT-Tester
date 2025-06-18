@@ -8,3 +8,9 @@
 /*         Have fun with it!             ✧         ✦    ✦       ✧     */
 /*     contract ig: jidapa_pern       ✦     ✦       ✧          ✦      */
 
+#include <stdio.h>
+
+int	main(void) {
+    
+    return 0;
+}

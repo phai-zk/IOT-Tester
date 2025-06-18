@@ -22,8 +22,6 @@ int	bomb_count(int map[9][9], int row, int col)
 				count++;
 		}
 	}
-	if (count > 0)
-		printf("Bombs around (%d, %d): %d\n", row, col, count);
 	return (count);
 }
 
@@ -41,23 +39,4 @@ void	minesweeper(int board[9][9])
 			board[row][col] = count;
 		}
 	}
-}
-
-int main()
-{
-	int board[9][9] =  {{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0},
-						{0, 0, 0, 0, 0, 0, 0, 0, 0}};
-
-	ft_get_minesweeper_board(board);
-	ft_print_minesweeper_board(board);
-	printf("-- Counting bombs --\n");
-	minesweeper(board);
-	ft_print_minesweeper_board(board);
 }

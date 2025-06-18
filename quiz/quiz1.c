@@ -15,3 +15,9 @@
 /*   We just want you to practice the basic syntax of C programming.    */
 /*──────────────────────────────────────────────────────────────────────*/
 
+#include <stdio.h>
+
+int	main(void) {
+    
+    return 0;
+}

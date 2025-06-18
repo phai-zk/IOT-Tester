@@ -22,3 +22,10 @@
 /*   F: less than 50                                                    */
 /*   Out of bounds: you are scammer!                                    */
 /*──────────────────────────────────────────────────────────────────────*/
+
+#include <stdio.h>
+
+int	main(void) {
+    
+    return 0;
+}

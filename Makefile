@@ -3,20 +3,6 @@
 YOUR_FILES_PATH = ../
 OBJ_PATH = obj_test_files
 
-FILES_PATH = test_files
-EZ_PATH = ${FILES_PATH}/EZ
-MD_PATH = ${FILES_PATH}/MD
-CZ_PATH = ${FILES_PATH}/CZ
-
-EZ_FILES = triangle_area.c compare.c grading.c
-MD_FILES = multi_table.c prime_number.c pern_star.c
-CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
-
-LIB = utils
-
-DOCUMENTATION_PATH = doc/testcase_
-QUIZ_PATH = quiz/quiz
-
 # Detect operating system
 ifeq ($(OS),Windows_NT)
 	SHELL = C:/Windows/System32/cmd.exe
@@ -39,6 +25,20 @@ else
     CP := cp
     PATH_SEP := /
 endif
+
+FILES_PATH = test_files
+EZ_PATH = ${FILES_PATH}${PATH_SEP}EZ
+MD_PATH = ${FILES_PATH}${PATH_SEP}MD
+CZ_PATH = ${FILES_PATH}${PATH_SEP}CZ
+
+EZ_FILES = triangle_area.c compare.c grading.c
+MD_FILES = multi_table.c prime_number.c pern_star.c
+CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
+
+LIB = utils
+SPECIAL_TEST8_PATH = ${LIB}{$PATH_SEP}special_test${PATH_SEP}quiz8_test.c
+DOCUMENTATION_PATH = doc${PATH_SEP}testcase_
+QUIZ_PATH = quiz${PATH_SEP}quiz
 
 .PHONY: all clean init setup reset recreate_quiz quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10 run_test_all os_info
 .SILENT: run_test_all quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10
@@ -63,16 +63,24 @@ ifeq ($(DETECTED_OS),Windows)
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz9 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz10 2>nul
 
-	gcc $(EZ_PATH)$(PATH_SEP)triangle_area.c -o $(OBJ_PATH)$(PATH_SEP)quiz2$(PATH_SEP)test_quiz2$(EXE_EXT); \
-	gcc $(EZ_PATH)$(PATH_SEP)compare.c -o $(OBJ_PATH)$(PATH_SEP)quiz3$(PATH_SEP)test_quiz3$(EXE_EXT); \
-	gcc $(EZ_PATH)$(PATH_SEP)grading.c -o $(OBJ_PATH)$(PATH_SEP)quiz4$(PATH_SEP)test_quiz4$(EXE_EXT); \
-	gcc $(MD_PATH)$(PATH_SEP)multi_table.c -o $(OBJ_PATH)$(PATH_SEP)quiz5$(PATH_SEP)test_quiz5$(EXE_EXT); \
-	gcc $(MD_PATH)$(PATH_SEP)prime_number.c -o $(OBJ_PATH)$(PATH_SEP)quiz6$(PATH_SEP)test_quiz6$(EXE_EXT); \
-	gcc $(MD_PATH)$(PATH_SEP)pern_star.c -o $(OBJ_PATH)$(PATH_SEP)quiz7$(PATH_SEP)test_quiz7$(EXE_EXT); \
-	gcc $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT); \
-	gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT); \
-	gcc $(CZ_PATH)$(PATH_SEP)b_tree_sort.c -o $(OBJ_PATH)$(PATH_SEP)quiz10$(PATH_SEP)test_quiz10$(EXE_EXT); \
-	echo "Compile tester files complete"; \
+	@gcc $(EZ_PATH)$(PATH_SEP)triangle_area.c -o $(OBJ_PATH)$(PATH_SEP)quiz2$(PATH_SEP)test_quiz2$(EXE_EXT)
+	@echo Compile Quiz 2 files complete
+	@gcc $(EZ_PATH)$(PATH_SEP)compare.c -o $(OBJ_PATH)$(PATH_SEP)quiz3$(PATH_SEP)test_quiz3$(EXE_EXT)
+	@echo Compile Quiz 3 files complete
+	@gcc $(EZ_PATH)$(PATH_SEP)grading.c -o $(OBJ_PATH)$(PATH_SEP)quiz4$(PATH_SEP)test_quiz4$(EXE_EXT)
+	@echo Compile Quiz 4 files complete
+	@gcc $(MD_PATH)$(PATH_SEP)multi_table.c -o $(OBJ_PATH)$(PATH_SEP)quiz5$(PATH_SEP)test_quiz5$(EXE_EXT)
+	@echo Compile Quiz 5 files complete
+	@gcc $(MD_PATH)$(PATH_SEP)prime_number.c -o $(OBJ_PATH)$(PATH_SEP)quiz6$(PATH_SEP)test_quiz6$(EXE_EXT)
+	@echo Compile Quiz 6 files complete
+	@gcc $(MD_PATH)$(PATH_SEP)pern_star.c -o $(OBJ_PATH)$(PATH_SEP)quiz7$(PATH_SEP)test_quiz7$(EXE_EXT)
+	@echo Compile Quiz 7 files complete
+	@gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
+	@echo Compile Quiz 8 files complete
+	@gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT)
+	@echo Compile Quiz 9 files complete
+	@gcc $(CZ_PATH)$(PATH_SEP)b_tree_sort.c -o $(OBJ_PATH)$(PATH_SEP)quiz10$(PATH_SEP)test_quiz10$(EXE_EXT)
+	@echo Compile Quiz 10 files complete
 else
 	@i=1; \
 	echo "==== Running compile quiz files (Unix) ===="; \
@@ -94,7 +102,7 @@ else
 	for file in $(CZ_FILES); do \
 		$(MKDIR) $(OBJ_PATH)/quiz$$i; \
 		if [ $$i -eq 8 ]; then \
-			gcc $(LIB)/special_test/quiz8_test.c $(CZ_PATH)/$$file $(LIB)/utils.a -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
+			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file $(LIB)/utils.a -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		else \
 			gcc $(CZ_PATH)/$$file -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		fi; \

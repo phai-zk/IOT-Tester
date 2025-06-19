@@ -14,7 +14,7 @@ ifeq ($(OS),Windows_NT)
     RMDIR := rmdir /s /q
     MKDIR := mkdir
     CP := copy
-    PATH_SEP := /
+    PATH_SEP := \\
 else
     DETECTED_OS := $(shell uname -s)
     EXE_EXT := 

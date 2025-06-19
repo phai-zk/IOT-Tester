@@ -1,6 +1,6 @@
 .SILENT:
 
-YOUR_FILES_PATH = ../
+YOUR_FILES_PATH = ..
 OBJ_PATH = obj_test_files
 
 # Detect operating system
@@ -157,9 +157,9 @@ upload:
 clean:
 	@echo "Remove compile files"
 ifeq ($(DETECTED_OS),Windows)
-	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH) 2>nul
+	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH)$(PATH_SEP)* 2>nul
 	@echo "Remove your files"
-	@if exist $(YOUR_FILES_PATH)$(PATH_SEP)quiz* $(RMDIR) $(YOUR_FILES_PATH)$(PATH_SEP)quiz* 2>nul
+
 else
 	@$(RMDIR) $(OBJ_PATH)/quiz*
 	@echo "Remove your files"

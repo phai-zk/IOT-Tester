@@ -102,7 +102,7 @@ else
 	for file in $(CZ_FILES); do \
 		$(MKDIR) $(OBJ_PATH)/quiz$$i; \
 		if [ $$i -eq 8 ]; then \
-			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file $(LIB)/utils.a -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
+			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file $(LIB) -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		else \
 			gcc $(CZ_PATH)/$$file -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		fi; \

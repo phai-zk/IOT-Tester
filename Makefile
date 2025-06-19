@@ -53,34 +53,26 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo "==== Running compile quiz files (Windows) ===="
 	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH) 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz1 2>nul
-	@echo $(EZ_FILES)
-	@for %%f in ($(EZ_FILES)) do ( \
-		echo Processing %%f \
-	)
-	@exist 0
-	# @set /a i=2 && \
-	# for %%f in ($(EZ_FILES)) do ( \
-	# 	$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul && \
-	# 	gcc $(EZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) && \
-	# 	echo Quiz !i!: %%f compile complete && \
-	# 	set /a i+=1 \
-	# ) && \
-	# for %%f in ($(MD_FILES)) do ( \
-	# 	$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul && \
-	# 	gcc $(MD_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) && \
-	# 	echo Quiz !i!: %%f compile complete && \
-	# 	set /a i+=1 \
-	# ) && \
-	# for %%f in ($(CZ_FILES)) do ( \
-	# 	$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz!i! 2>nul && \
-	# 	if !i! == 8 ( \
-	# 		gcc $(LIB)$(PATH_SEP)special_test$(PATH_SEP)quiz8_test.c $(CZ_PATH)$(PATH_SEP)%%f $(LIB)$(PATH_SEP)utils.a -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) \
-	# 	) else ( \
-	# 		gcc $(CZ_PATH)$(PATH_SEP)%%f -o $(OBJ_PATH)$(PATH_SEP)quiz!i!$(PATH_SEP)test_quiz!i!$(EXE_EXT) \
-	# 	) && \
-	# 	echo Quiz !i!: %%f compile complete && \
-	# 	set /a i+=1 \
-	# )
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz2 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz3 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz4 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz5 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz6 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz7 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz8 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz9 2>nul
+	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz10 2>nul
+
+	gcc $(EZ_PATH)$(PATH_SEP)triangle_area.c -o $(OBJ_PATH)$(PATH_SEP)quiz2$(PATH_SEP)test_quiz2$(EXE_EXT); \
+	gcc $(EZ_PATH)$(PATH_SEP)compare.c -o $(OBJ_PATH)$(PATH_SEP)quiz3$(PATH_SEP)test_quiz3$(EXE_EXT); \
+	gcc $(EZ_PATH)$(PATH_SEP)grading.c -o $(OBJ_PATH)$(PATH_SEP)quiz4$(PATH_SEP)test_quiz4$(EXE_EXT); \
+	gcc $(MD_PATH)$(PATH_SEP)multi_table.c -o $(OBJ_PATH)$(PATH_SEP)quiz5$(PATH_SEP)test_quiz5$(EXE_EXT); \
+	gcc $(MD_PATH)$(PATH_SEP)prime_number.c -o $(OBJ_PATH)$(PATH_SEP)quiz6$(PATH_SEP)test_quiz6$(EXE_EXT); \
+	gcc $(MD_PATH)$(PATH_SEP)pern_star.c -o $(OBJ_PATH)$(PATH_SEP)quiz7$(PATH_SEP)test_quiz7$(EXE_EXT); \
+	gcc $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT); \
+	gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT); \
+	gcc $(CZ_PATH)$(PATH_SEP)b_tree_sort.c -o $(OBJ_PATH)$(PATH_SEP)quiz10$(PATH_SEP)test_quiz10$(EXE_EXT); \
+	echo "Compile tester files complete"; \
 else
 	@i=1; \
 	echo "==== Running compile quiz files (Unix) ===="; \

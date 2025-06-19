@@ -1,5 +1,3 @@
-#include "../../utils/utils.h"
-
 int	bomb_count(int map[9][9], int row, int col)
 {
 	int	count;

@@ -159,7 +159,16 @@ clean:
 ifeq ($(DETECTED_OS),Windows)
 	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH)$(PATH_SEP)* 2>nul
 	@echo "Remove your files"
-
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz1 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz1 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz2 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz2 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz3 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz3 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz4 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz4 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz5 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz5 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz6 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz6 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz7 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz7 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz8 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz8 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz9 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz9 2>nul
+	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz10 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz10 2>nul
 else
 	@$(RMDIR) $(OBJ_PATH)/quiz*
 	@echo "Remove your files"

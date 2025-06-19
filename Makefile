@@ -35,8 +35,8 @@ EZ_FILES = triangle_area.c compare.c grading.c
 MD_FILES = multi_table.c prime_number.c pern_star.c
 CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
 
-# LIB_PATH = utils
-# LIB = ${LIB_PATH}${PATH_SEP}utils.a
+LIB_PATH = utils
+LIB = ${LIB_PATH}${PATH_SEP}utils.a
 SPECIAL_TEST8_PATH = utils${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
 DOCUMENTATION_PATH = doc${PATH_SEP}testcase_
 QUIZ_PATH = quiz${PATH_SEP}quiz
@@ -51,7 +51,7 @@ os_info:
 
 setup:
 ifeq ($(DETECTED_OS),Windows)
-	@echo "==== Running compile quiz files (Windows) ===="
+	@echo ==== Running compile quiz files (Windows) ====
 	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH) 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz1 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz2 2>nul
@@ -76,7 +76,7 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo Compile Quiz 6 files complete
 	@gcc $(MD_PATH)$(PATH_SEP)pern_star.c -o $(OBJ_PATH)$(PATH_SEP)quiz7$(PATH_SEP)test_quiz7$(EXE_EXT)
 	@echo Compile Quiz 7 files complete
-	@gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
+	@gcc ${SPECIAL_TEST8_PATH} ${LIB} $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
 	@echo Compile Quiz 8 files complete
 	@gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT)
 	@echo Compile Quiz 9 files complete
@@ -84,7 +84,7 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo Compile Quiz 10 files complete
 else
 	@i=1; \
-	echo "==== Running compile quiz files (Unix) ===="; \
+	echo ==== Running compile quiz files (Unix) ==== \
 	$(RMDIR) $(OBJ_PATH); \
 	$(MKDIR) $(OBJ_PATH)/quiz$$i; \
 	i=$$((i + 1)); \
@@ -103,7 +103,7 @@ else
 	for file in $(CZ_FILES); do \
 		$(MKDIR) $(OBJ_PATH)/quiz$$i; \
 		if [ $$i -eq 8 ]; then \
-			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
+			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file $(LIB) -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		else \
 			gcc $(CZ_PATH)/$$file -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		fi; \
@@ -114,11 +114,11 @@ endif
 
 init: setup
 ifeq ($(DETECTED_OS),Windows)
-	@echo "==== Running setup workspace files (Windows) ====";
+	@echo ==== Running setup workspace files (Windows) ====
 	@for /l %%i in (1,1,10) do ( \
-		$(MKDIR) $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i 2>nul && \
+		echo "$(MKDIR) $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i 2>nul && \
 		$(CP) $(QUIZ_PATH)%%i.c $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)quiz%%i.c >nul && \
-		$(CP) $(DOCUMENTATION_PATH)%%i.txt $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)testcase.txt >nul && \
+		$(CP) $(DOCUMENTATION_PATH)%%i.txt $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)testcase.txt >nul" && \
 		echo Quiz %%i: setup complete \
 	)
 else
@@ -131,20 +131,20 @@ else
 	done
 endif
 
-# update_lib:
-# ifeq ($(DETECTED_OS),Windows)
-# 	@if exist $(LIB_PATH)$(PATH_SEP)*.o $(RM) $(LIB_PATH)$(PATH_SEP)*.o 2>nul
-# 	@if exist $(LIB_PATH)$(PATH_SEP)*.a $(RM) $(LIB_PATH)$(PATH_SEP)*.a 2>nul
-# 	@if exist $(LIB_PATH)$(PATH_SEP)*.out $(RM) $(LIB_PATH)$(PATH_SEP)*.out 2>nul
-# 	@gcc -c $(LIB_PATH)$(PATH_SEP)*.c -o $(LIB_PATH)$(PATH_SEP)utils.o
-# 	@ar rc $(LIB_PATH)$(PATH_SEP)utils.a $(LIB_PATH)$(PATH_SEP)utils.o
-# 	@echo "Update lib complete"
-# else
-# 	@$(RM) $(LIB_PATH)/*.o $(LIB_PATH)/*.a $(LIB_PATH)/*.out
-# 	@gcc -c $(LIB_PATH)/*.c -o $(LIB_PATH)/utils.o
-# 	@ar rc $(LIB_PATH)/utils.a $(LIB_PATH)/utils.o
-# 	@echo "Update lib complete"
-# endif
+update_lib:
+ifeq ($(DETECTED_OS),Windows)
+	@if exist $(LIB_PATH)$(PATH_SEP)*.o $(RM) $(LIB_PATH)$(PATH_SEP)*.o 2>nul
+	@if exist $(LIB_PATH)$(PATH_SEP)*.a $(RM) $(LIB_PATH)$(PATH_SEP)*.a 2>nul
+	@if exist $(LIB_PATH)$(PATH_SEP)*.out $(RM) $(LIB_PATH)$(PATH_SEP)*.out 2>nul
+	@gcc -c $(LIB_PATH)$(PATH_SEP)*.c -o $(LIB_PATH)$(PATH_SEP)utils.o
+	@ar rc $(LIB_PATH)$(PATH_SEP)utils.a $(LIB_PATH)$(PATH_SEP)utils.o
+	@echo "Update lib complete"
+else
+	@$(RM) $(LIB_PATH)/*.o $(LIB_PATH)/*.a $(LIB_PATH)/*.out
+	@gcc -c $(LIB_PATH)/*.c -o $(LIB_PATH)/utils.o
+	@ar rc $(LIB_PATH)/utils.a $(LIB_PATH)/utils.o
+	@echo "Update lib complete"
+endif
 
 update:
 	@git pull -f
@@ -157,18 +157,15 @@ upload:
 clean:
 	@echo "Remove compile files"
 ifeq ($(DETECTED_OS),Windows)
-	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH)$(PATH_SEP)* 2>nul
+	@if exist $(OBJ_PATH) $(RMDIR) $(OBJ_PATH) 2>nul
+	@$(MKDIR) $(OBJ_PATH)
 	@echo "Remove your files"
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz1 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz1 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz2 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz2 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz3 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz3 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz4 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz4 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz5 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz5 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz6 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz6 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz7 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz7 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz8 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz8 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz9 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz9 2>nul
-	@if exist $(YOUR_FILES_PATH)${PATH_SEP}quiz10 $(RMDIR) $(YOUR_FILES_PATH)${PATH_SEP}quiz10 2>nul
+	@setlocal EnableDelayedExpansion && set i=0 && \
+	for /d %%d in ($(YOUR_FILES_PATH)$(PATH_SEP)quiz*) do ( \
+		set /a i=!i!+1 && \
+		echo Removing folder !i!: %%d && \
+		$(RMDIR) "%%d" \
+	)
 else
 	@$(RMDIR) $(OBJ_PATH)/quiz*
 	@echo "Remove your files"

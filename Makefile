@@ -116,9 +116,9 @@ init: setup
 ifeq ($(DETECTED_OS),Windows)
 	@echo ==== Running setup workspace files (Windows) ====
 	@for /l %%i in (1,1,10) do ( \
-		echo " $(MKDIR) $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i 2>nul && \
-		$(CP) $(QUIZ_PATH)%%i.c $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)quiz%%i.c >error && \
-		$(CP) $(DOCUMENTATION_PATH)%%i.txt $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)testcase.txt >nul" && \
+		$(MKDIR) $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i 2>nul && \
+		$(CP) $(QUIZ_PATH)%%i.c $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)quiz%%i.c >nul && \
+		$(CP) $(DOCUMENTATION_PATH)%%i.txt $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)testcase.txt >nul && \
 		echo Quiz %%i: setup complete \
 	)
 else

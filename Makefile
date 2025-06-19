@@ -138,12 +138,12 @@ else
 endif
 
 update:
-	@git pull
+	@git pull -f
 
 upload: 
 	@git add .
 	@git commit -m "update"
-	@git push
+	@git push -f
 
 clean:
 	@echo "Remove compile files"

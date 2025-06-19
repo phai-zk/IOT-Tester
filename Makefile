@@ -14,7 +14,7 @@ ifeq ($(OS),Windows_NT)
     RMDIR := rmdir /s /q
     MKDIR := mkdir
     CP := copy
-    PATH_SEP := \\
+    PATH_SEP := /
 else
     DETECTED_OS := $(shell uname -s)
     EXE_EXT := 
@@ -35,7 +35,8 @@ EZ_FILES = triangle_area.c compare.c grading.c
 MD_FILES = multi_table.c prime_number.c pern_star.c
 CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
 
-LIB = utils${PATH_SEP}utils.a
+LIB_PATH = utils
+LIB = ${LIB_PATH}${PATH_SEP}utils.a
 SPECIAL_TEST8_PATH = utils${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
 DOCUMENTATION_PATH = doc${PATH_SEP}testcase_
 QUIZ_PATH = quiz${PATH_SEP}quiz
@@ -132,16 +133,16 @@ endif
 
 update_lib:
 ifeq ($(DETECTED_OS),Windows)
-	@if exist $(LIB)$(PATH_SEP)*.o $(RM) $(LIB)$(PATH_SEP)*.o 2>nul
-	@if exist $(LIB)$(PATH_SEP)*.a $(RM) $(LIB)$(PATH_SEP)*.a 2>nul
-	@if exist $(LIB)$(PATH_SEP)*.out $(RM) $(LIB)$(PATH_SEP)*.out 2>nul
-	@gcc -c $(LIB)$(PATH_SEP)*.c -o $(LIB)$(PATH_SEP)utils.o
-	@ar rc $(LIB)$(PATH_SEP)utils.a $(LIB)$(PATH_SEP)utils.o
+	@if exist $(LIB_PATH)$(PATH_SEP)*.o $(RM) $(LIB_PATH)$(PATH_SEP)*.o 2>nul
+	@if exist $(LIB_PATH)$(PATH_SEP)*.a $(RM) $(LIB_PATH)$(PATH_SEP)*.a 2>nul
+	@if exist $(LIB_PATH)$(PATH_SEP)*.out $(RM) $(LIB_PATH)$(PATH_SEP)*.out 2>nul
+	@gcc -c $(LIB_PATH)$(PATH_SEP)*.c -o $(LIB_PATH)$(PATH_SEP)utils.o
+	@ar rc $(LIB_PATH)$(PATH_SEP)utils.a $(LIB_PATH)$(PATH_SEP)utils.o
 	@echo "Update lib complete"
 else
-	@$(RM) $(LIB)/*.o $(LIB)/*.a $(LIB)/*.out
-	@gcc -c $(LIB)/*.c -o $(LIB)/utils.o
-	@ar rc $(LIB)/utils.a $(LIB)/utils.o
+	@$(RM) $(LIB_PATH)/*.o $(LIB_PATH)/*.a $(LIB_PATH)/*.out
+	@gcc -c $(LIB_PATH)/*.c -o $(LIB_PATH)/utils.o
+	@ar rc $(LIB_PATH)/utils.a $(LIB_PATH)/utils.o
 	@echo "Update lib complete"
 endif
 

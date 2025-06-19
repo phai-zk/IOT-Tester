@@ -35,8 +35,8 @@ EZ_FILES = triangle_area.c compare.c grading.c
 MD_FILES = multi_table.c prime_number.c pern_star.c
 CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
 
-LIB = utils
-SPECIAL_TEST8_PATH = ${LIB}${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
+LIB = utils${PATH_SEP}utils.a
+SPECIAL_TEST8_PATH = utils${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
 DOCUMENTATION_PATH = doc${PATH_SEP}testcase_
 QUIZ_PATH = quiz${PATH_SEP}quiz
 
@@ -75,7 +75,7 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo Compile Quiz 6 files complete
 	@gcc $(MD_PATH)$(PATH_SEP)pern_star.c -o $(OBJ_PATH)$(PATH_SEP)quiz7$(PATH_SEP)test_quiz7$(EXE_EXT)
 	@echo Compile Quiz 7 files complete
-	@gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
+	@gcc ${SPECIAL_TEST8_PATH} ${LIB} $(CZ_PATH)$(PATH_SEP)minesweeper.c  -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
 	@echo Compile Quiz 8 files complete
 	@gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT)
 	@echo Compile Quiz 9 files complete
@@ -102,7 +102,7 @@ else
 	for file in $(CZ_FILES); do \
 		$(MKDIR) $(OBJ_PATH)/quiz$$i; \
 		if [ $$i -eq 8 ]; then \
-			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file $(LIB)/utils.a -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
+			gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)/$$file $(LIB) -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		else \
 			gcc $(CZ_PATH)/$$file -o $(OBJ_PATH)/quiz$$i/test_quiz$$i$(EXE_EXT); \
 		fi; \

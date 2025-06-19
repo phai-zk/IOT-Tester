@@ -36,7 +36,7 @@ MD_FILES = multi_table.c prime_number.c pern_star.c
 CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
 
 LIB = utils
-SPECIAL_TEST8_PATH = ${LIB}{$PATH_SEP}special_test${PATH_SEP}quiz8_test.c
+SPECIAL_TEST8_PATH = ${LIB}${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
 DOCUMENTATION_PATH = doc${PATH_SEP}testcase_
 QUIZ_PATH = quiz${PATH_SEP}quiz
 

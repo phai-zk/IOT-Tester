@@ -38,7 +38,7 @@ CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
 LIB_PATH = utils
 LIB = ${LIB_PATH}${PATH_SEP}utils.a
 SPECIAL_TEST8_PATH = utils${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
-DOCUMENTATION_PATH = doc${PATH_SEP}testcase_
+DOCUMENTATION_PATH = doc${PATH_SEP}document_
 QUIZ_PATH = quiz${PATH_SEP}quiz
 
 .PHONY: all clean init setup reset recreate_quiz quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10 run_test_all os_info
@@ -165,7 +165,7 @@ ifeq ($(DETECTED_OS),Windows)
 		set /a i=!i!+1 && \
 		echo Removing folder !i!: %%d && \
 		$(RMDIR) "%%d" \
-	)
+	) 
 else
 	@$(RMDIR) $(OBJ_PATH)/quiz*
 	@echo "Remove your files"

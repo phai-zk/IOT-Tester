@@ -152,10 +152,10 @@ test_traffics() {
 
 		test1=$(run_test_case "5" 1)
 		test2=$(run_test_case "2" 2)
-		test3=$(run_test_case "7" 3)
+		test3=$(run_test_case "3" 3)
 		test4=$(run_test_case "6" 4)
-		test5=$(run_test_case "8" 5)
-		test6=$(run_test_case "10" 6)
+		test5=$(run_test_case "9" 5)
+		test6=$(run_test_case "15" 6)
 		test7=$(run_test_case "11" 7)
 		test8=$(run_test_case "20" 8)
 		test_results="$test1\n\n$test2\n\n$test3\n\n$test4\n\n$test5\n\n$test6\n\n$test7\n\n$test8"

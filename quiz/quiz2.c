@@ -8,14 +8,15 @@
 /*         Have fun with it!             ✧         ✦    ✦       ✧     */
 /*     contract ig: jidapa_pern      ✧      ✦       ✧          ✦      */
 /************************************************************************/
-/* ✦ Quiz 2: Spellbound Paradox ✧                                      */
+/* ✦ Quiz 2: DeltaSigil ✧                                              */
 /************************************************************************/
 /* ✦ Description ✧                                                     */
-/* Write a program that compares 2 values and print the result.         */
+/* Write a program that calculate the triangle area.                    */
 /************************************************************************/
 /* ✦ Learnings ✧                                                       */
-/* - How to get input from user. (scanf(); syntax)                      */
-/* - How to compare values. (if; else; else if; syntax)                 */
+/* - Operators (/, *, +, -, %)                                          */
+/* - Variables (int, float, double)                                     */
+/* - Output with variable (printf(); syntax)                            */
 /************************************************************************/
 
 #include <stdio.h>

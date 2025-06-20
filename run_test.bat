@@ -126,10 +126,10 @@ if "%q%"=="1" (
     set /p=Test:<nul  
     call :run_test_case "5" 1
     call :run_test_case "2" 2
-    call :run_test_case "7" 3
+    call :run_test_case "3" 3
     call :run_test_case "6" 4
-    call :run_test_case "8" 5
-    call :run_test_case "10" 6
+    call :run_test_case "9" 5
+    call :run_test_case "15" 6
     call :run_test_case "11" 7
     call :run_test_case "20" 8
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe

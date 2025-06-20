@@ -7,6 +7,19 @@
 /*          P'Pern gift to IoT04      ✧   ✦      ✧          ✦         */
 /*         Have fun with it!             ✧         ✦    ✦       ✧     */
 /*     contract ig: jidapa_pern      ✧      ✦       ✧          ✦      */
+/************************************************************************/
+/* ✦ Quiz 9: The Tower of Arcana ✧                                     */
+/************************************************************************/
+/* ✦ Description ✧                                                     */
+/* Write a program that solve the Tower of Hanoi problem.               */
+/************************************************************************/
+/* ✦ Learnings ✧                                                       */
+/* - Practice Logic (Stack)                                             */
+/* - #define Syntax (MAX_DISKS)                                         */
+/* - Structure Syntax (Rod)                                             */
+/* - Type of Data Structure (Stack)                                     */
+/* - How to use recursion (Stack)                                       */
+/************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>

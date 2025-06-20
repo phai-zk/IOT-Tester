@@ -217,6 +217,11 @@ if %errorlevel% neq 0 (
     if exist compile_error.txt del compile_error.txt
     exit /b 1
 ) else (
+    if exist %OUTPUT_PATH% rmdir /s /q %OUTPUT_PATH%
+    mkdir %OUTPUT_PATH%
+    for /l %%i in (1,1,10) do (
+        mkdir %OUTPUT_PATH%\quiz%%i
+    )
     call :test_traffics %QUIZ%
     echo Log files are in %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 )

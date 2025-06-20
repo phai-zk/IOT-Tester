@@ -230,6 +230,15 @@ if [ $? -ne 0 ]; then
 	rm -f compile_error.txt
 	exit 1
 else
+	rm -rf ${OUTPUT_PATH}
+	mkdir ${OUTPUT_PATH}
+	for i in $(seq 1 10); do
+		mkdir ${OUTPUT_PATH}/quiz$i
+	done
 	test_traffics $QUIZ
 	echo "${BLUE}Log files are in $YOUR_FILES_PATH/quiz$QUIZ/log_$QUIZ.txt${NC}"
+fi
+
+if [ -f compile_error.txt ]; then
+	rm -f compile_error.txt
 fi

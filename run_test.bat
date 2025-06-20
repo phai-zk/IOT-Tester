@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 > nul
 setlocal enabledelayedexpansion
 
 set YOUR_FILES_PATH=..
@@ -25,7 +26,7 @@ set test=%~2
 REM Run the program with input
 echo %input% > %INPUT_PATH%\temp_input.txt
 
-echo Test %test% Quiz2 Log
+echo Test %test% Quiz2 Log >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt 
 
 REM Run user's program
 %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe < %INPUT_PATH%\temp_input.txt > %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
@@ -37,16 +38,17 @@ REM Compare outputs
 fc /N %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt > nul 2>&1
 set status=%errorlevel%
 
-echo ================= OUTPUT TEST %test% ==================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+echo ================= OUTPUT TEST %test% ==================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 
 if %status% == 0 (
-    type %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt
-    echo %test%^)✓ 
-    echo ===================== SUCCESS ======================= >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+    type %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+    echo $ >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+    set /p=%test%^)✓ <nul
+    echo ===================== SUCCESS ======================= >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 ) else (
-    fc %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt
-    echo %test%^)✗ 
-    echo =====================   FAIL  ======================= >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+    fc %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+    set /p=%test%^)✗ <nul
+    echo =====================   FAIL  ======================= >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 )
 goto :eof
 
@@ -56,12 +58,11 @@ set LOG_FILE=%YOUR_FILES_PATH%\quiz%q%\log_%q%.txt
 if exist %LOG_FILE% del %LOG_FILE%
 
 if "%q%"=="1" (
-    echo Test: 
+    set /p=Test:<nul 
     call :quiz1_test
-    echo.
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
 ) else if "%q%"=="2" (
-    echo Test: 
+    set /p=Test:<nul 
     call :run_test_case "5\n5" 1
     call :run_test_case "100\n10" 2
     call :run_test_case "3325\n15" 3
@@ -71,10 +72,9 @@ if "%q%"=="1" (
     call :run_test_case "21241\n4323" 7
     call :run_test_case "51\n2147483647" 8
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="3" (
-    echo Test: 
+    set /p=Test: <nul 
     call :run_test_case "12\n7" 1
     call :run_test_case "88\n42" 2
     call :run_test_case "999\n123" 3
@@ -84,10 +84,9 @@ if "%q%"=="1" (
     call :run_test_case "42\2141241-1" 7
     call :run_test_case "apple\n314" 8
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="4" (
-    echo Test: 
+    set /p=Test: <nul  
     call :run_test_case "50" 1
     call :run_test_case "80" 2
     call :run_test_case "1000" 3
@@ -102,10 +101,9 @@ if "%q%"=="1" (
     call :run_test_case "100" 12
     call :run_test_case "72" 13
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="5" (
-    echo Test: 
+    set /p=Test: <nul  
     call :run_test_case "10" 1
     call :run_test_case "8" 2
     call :run_test_case "12" 3
@@ -116,10 +114,9 @@ if "%q%"=="1" (
     call :run_test_case "A" 8
     call :run_test_case "654522" 9
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="6" (
-    echo Test: 
+    set /p=Test: <nul  
     call :run_test_case "101" 1
     call :run_test_case "997" 2
     call :run_test_case "123456" 3
@@ -131,10 +128,9 @@ if "%q%"=="1" (
     call :run_test_case "104729" 9
     call :run_test_case "100000000" 10
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="7" (
-    echo Test: 
+    set /p=Test: <nul  
     call :run_test_case "5" 1
     call :run_test_case "2" 2
     call :run_test_case "7" 3
@@ -144,10 +140,9 @@ if "%q%"=="1" (
     call :run_test_case "11" 7
     call :run_test_case "20" 8
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="8" (
-    echo Test: 
+    set /p=Test: <nul  
     call :run_test_case "" 1
     call :run_test_case "" 2
     call :run_test_case "" 3
@@ -157,41 +152,41 @@ if "%q%"=="1" (
     call :run_test_case "" 7
     call :run_test_case "" 8
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else if "%q%"=="9" (
-    echo Test: 
+    set /p=Test: <nul  
     call :run_test_case "3" 1
     call :run_test_case "4" 2
     call :run_test_case "5" 3
     call :run_test_case "6" 4
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
-    del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
 ) else (
-    echo Test: Not implemented yet
+    set /p=Test: <nul  Not implemented yet
     exit /b 0
 )
+echo Log files are in %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+echo.
 goto :eof
 
 :quiz1_test
 REM Run user's program with input
 %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe > %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
-@REM echo Test Quiz1 Log: >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-@REM echo ====================== FILES OUTPUT ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-@REM type %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
-
-@REM REM Check if file has content
-@REM for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA
-@REM if !size! gtr 0 (
-@REM     echo 1^)✓ 
-@REM     echo ======================    SUCCESS   ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-@REM ) else (
-@REM     echo 1^)✗ 
-@REM     echo ======================      FAIL    ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-@REM )
-@REM echo.
-@REM if exist %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt del %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
+echo Test Quiz1 Log: >> %OUTPUT_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+echo ====================== FILES OUTPUT ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+type %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+echo $ >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+REM Check if file has content
+for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA 
+if !size! gtr 0 (
+    set /p=1^)✓ <nul
+    echo ======================    SUCCESS   ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+) else (
+    set /p=1^)✗ <nul
+    echo ======================      FAIL    ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+)
+echo.
+if exist %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt del %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
 goto :eof
 
 :main
@@ -223,7 +218,6 @@ if %errorlevel% neq 0 (
         mkdir %OUTPUT_PATH%\quiz%%i
     )
     call :test_traffics %QUIZ%
-    echo Log files are in %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 )
 
 if exist compile_error.txt del compile_error.txt

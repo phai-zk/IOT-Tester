@@ -76,7 +76,7 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo Compile Quiz 6 files complete
 	@gcc $(MD_PATH)$(PATH_SEP)pern_star.c -o $(OBJ_PATH)$(PATH_SEP)quiz7$(PATH_SEP)test_quiz7$(EXE_EXT)
 	@echo Compile Quiz 7 files complete
-	@gcc ${SPECIAL_TEST8_PATH} ${LIB} $(CZ_PATH)$(PATH_SEP)minesweeper.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
+	@gcc ${SPECIAL_TEST8_PATH} $(CZ_PATH)$(PATH_SEP)minesweeper.c ${LIB_PATH}$(PATH_SEP)utils.c -o $(OBJ_PATH)$(PATH_SEP)quiz8$(PATH_SEP)test_quiz8$(EXE_EXT)
 	@echo Compile Quiz 8 files complete
 	@gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT)
 	@echo Compile Quiz 9 files complete

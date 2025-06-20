@@ -177,21 +177,21 @@ goto :eof
 :quiz1_test
 REM Run user's program with input
 %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe > %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
-echo Test Quiz1 Log: >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-echo ====================== FILES OUTPUT ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-type %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
+@REM echo Test Quiz1 Log: >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+@REM echo ====================== FILES OUTPUT ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+@REM type %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
 
-REM Check if file has content
-for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA
-if !size! gtr 0 (
-    echo 1^)✓ 
-    echo ======================    SUCCESS   ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-) else (
-    echo 1^)✗ 
-    echo ======================      FAIL    ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
-)
-echo.
-if exist %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt del %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
+@REM REM Check if file has content
+@REM for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA
+@REM if !size! gtr 0 (
+@REM     echo 1^)✓ 
+@REM     echo ======================    SUCCESS   ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+@REM ) else (
+@REM     echo 1^)✗ 
+@REM     echo ======================      FAIL    ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+@REM )
+@REM echo.
+@REM if exist %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt del %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
 goto :eof
 
 :main

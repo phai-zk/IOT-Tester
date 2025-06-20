@@ -1,5 +1,4 @@
 @echo off
-chcp 65001 > nul
 setlocal enabledelayedexpansion
 
 set YOUR_FILES_PATH=..
@@ -38,16 +37,16 @@ REM Compare outputs
 fc /N %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt > nul 2>&1
 set status=%errorlevel%
 
-echo ================= OUTPUT TEST %test% ====================
+echo ================= OUTPUT TEST %test% ==================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
 
 if %status% == 0 (
     type %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt
     echo %test%^)✓ 
-    echo ===================== SUCCESS =======================
+    echo ===================== SUCCESS ======================= >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
 ) else (
     fc %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt
     echo %test%^)✗ 
-    echo =====================   FAIL  =======================
+    echo =====================   FAIL  ======================= >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
 )
 goto :eof
 
@@ -59,7 +58,6 @@ if exist %LOG_FILE% del %LOG_FILE%
 if "%q%"=="1" (
     echo Test: 
     call :quiz1_test
-    echo !test_results! > %LOG_FILE%
     echo.
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
 ) else if "%q%"=="2" (
@@ -72,8 +70,6 @@ if "%q%"=="1" (
     call :run_test_case "324234\n0" 6
     call :run_test_case "21241\n4323" 7
     call :run_test_case "51\n2147483647" 8
-    REM Note: Windows batch doesn't handle multiline variables well, so we'll append to log file directly
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -87,7 +83,6 @@ if "%q%"=="1" (
     call :run_test_case "0\n9999" 6
     call :run_test_case "42\2141241-1" 7
     call :run_test_case "apple\n314" 8
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -106,7 +101,6 @@ if "%q%"=="1" (
     call :run_test_case "76" 11
     call :run_test_case "100" 12
     call :run_test_case "72" 13
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -121,7 +115,6 @@ if "%q%"=="1" (
     call :run_test_case "\0" 7
     call :run_test_case "A" 8
     call :run_test_case "654522" 9
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -137,7 +130,6 @@ if "%q%"=="1" (
     call :run_test_case "104730" 8
     call :run_test_case "104729" 9
     call :run_test_case "100000000" 10
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -151,7 +143,6 @@ if "%q%"=="1" (
     call :run_test_case "10" 6
     call :run_test_case "11" 7
     call :run_test_case "20" 8
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -165,7 +156,6 @@ if "%q%"=="1" (
     call :run_test_case "" 6
     call :run_test_case "" 7
     call :run_test_case "" 8
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -175,7 +165,6 @@ if "%q%"=="1" (
     call :run_test_case "4" 2
     call :run_test_case "5" 3
     call :run_test_case "6" 4
-    echo Test results logged to %LOG_FILE%
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     del %OUTPUT_PATH%\quiz%QUIZ%\* 2>nul
     echo.
@@ -188,18 +177,18 @@ goto :eof
 :quiz1_test
 REM Run user's program with input
 %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe > %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
-echo Test Quiz1 Log:
-echo ====================== FILES OUTPUT ======================
+echo Test Quiz1 Log: >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
+echo ====================== FILES OUTPUT ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
 type %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
 
 REM Check if file has content
 for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA
 if !size! gtr 0 (
     echo 1^)✓ 
-    echo ======================    SUCCESS   ====================== 
+    echo ======================    SUCCESS   ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
 ) else (
     echo 1^)✗ 
-    echo ======================      FAIL    ====================== 
+    echo ======================      FAIL    ====================== >> %OUTPUT_PATH%\quiz%QUIZ%\test_log.txt
 )
 echo.
 if exist %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt del %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt

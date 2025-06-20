@@ -172,13 +172,13 @@ goto :eof
 :quiz1_test
 REM Run user's program with input
 %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe > %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt
-echo Test Quiz1 Log: >> %OUTPUT_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+echo Test Quiz1 Log: >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 echo ====================== FILES OUTPUT ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 type %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 echo $ >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 REM Check if file has content
 for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA 
-if !size! gtr 0 (
+if %size% gtr 0 (
     set /p=1^)✓ <nul
     echo ======================    SUCCESS   ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 ) else (

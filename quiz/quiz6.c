@@ -7,3 +7,11 @@
 /*          P'Pern gift to IoT04      ✧   ✦      ✧          ✦         */
 /*         Have fun with it!             ✧         ✦    ✦       ✧     */
 /*     contract ig: jidapa_pern      ✧      ✦       ✧          ✦      */
+
+#include <stdio.h>
+
+int main()
+{
+
+    return (0);
+}

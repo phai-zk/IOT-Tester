@@ -9,13 +9,6 @@ set INPUT_PATH=.\temp
 set LIB=.\utils
 set SPECIAL_TEST_PATH=%LIB%\special_test\quiz8_test.c
 
-REM Define color codes (Windows doesn't support ANSI colors by default, but we'll use echo for messages)
-set RED=[91m
-set GREEN=[92m
-set YELLOW=[93m
-set BLUE=[94m
-set NC=[0m
-
 REM Function to run a test case
 goto :main
 
@@ -43,11 +36,11 @@ echo ================= OUTPUT TEST %test% ==================== >> %YOUR_FILES_PA
 if %status% == 0 (
     type %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
     echo $ >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
-    set /p=%test%^)✓ <nul
+    call :print " %test%)✓ " Green 1
     echo ===================== SUCCESS ======================= >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 ) else (
     fc %OUTPUT_PATH%\quiz%QUIZ%\user_output.txt %OUTPUT_PATH%\quiz%QUIZ%\test_output.txt >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
-    set /p=%test%^)✗ <nul
+    call :print " %test%)✗ " Red 1
     echo =====================   FAIL  ======================= >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 )
 goto :eof
@@ -74,7 +67,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="3" (
-    set /p=Test: <nul 
+    set /p=Test:<nul 
     call :run_test_case "12\n7" 1
     call :run_test_case "88\n42" 2
     call :run_test_case "999\n123" 3
@@ -86,7 +79,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="4" (
-    set /p=Test: <nul  
+    set /p=Test:<nul  
     call :run_test_case "50" 1
     call :run_test_case "80" 2
     call :run_test_case "1000" 3
@@ -103,7 +96,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="5" (
-    set /p=Test: <nul  
+    set /p=Test:<nul  
     call :run_test_case "10" 1
     call :run_test_case "8" 2
     call :run_test_case "12" 3
@@ -116,7 +109,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="6" (
-    set /p=Test: <nul  
+    set /p=Test:<nul  
     call :run_test_case "101" 1
     call :run_test_case "997" 2
     call :run_test_case "123456" 3
@@ -130,7 +123,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="7" (
-    set /p=Test: <nul  
+    set /p=Test:<nul  
     call :run_test_case "5" 1
     call :run_test_case "2" 2
     call :run_test_case "7" 3
@@ -142,7 +135,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="8" (
-    set /p=Test: <nul  
+    set /p=Test:<nul  
     call :run_test_case "" 1
     call :run_test_case "" 2
     call :run_test_case "" 3
@@ -154,7 +147,7 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else if "%q%"=="9" (
-    set /p=Test: <nul  
+    set /p=Test:<nul  
     call :run_test_case "3" 1
     call :run_test_case "4" 2
     call :run_test_case "5" 3
@@ -162,11 +155,24 @@ if "%q%"=="1" (
     if exist %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe del %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe
     echo.
 ) else (
-    set /p=Test: <nul  Not implemented yet
+    call :print "Test: Not implemented yet" Red 0
     exit /b 0
 )
-echo Log files are in %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
+call :print "Log files are in %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt" Blue 0
 echo.
+goto :eof
+
+:print
+setlocal enabledelayedexpansion
+set text=%1
+set color=%2
+set newline=%3
+if %newline% neq 0 (
+    powershell -Command "Write-Host '!text!' -NoNewline -ForegroundColor !color!"
+) else (
+    powershell -Command "Write-Host '!text!' -ForegroundColor !color!"
+)
+endlocal
 goto :eof
 
 :quiz1_test
@@ -179,10 +185,10 @@ echo $ >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 REM Check if file has content
 for %%A in (%OUTPUT_PATH%\quiz%QUIZ%\user_output.txt) do set size=%%~zA 
 if %size% gtr 0 (
-    set /p=1^)✓ <nul
+    call :print " 1)✓ " Green 1
     echo ======================    SUCCESS   ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 ) else (
-    set /p=1^)✗ <nul
+    call :print " 1)✗ " Red 1
     echo ======================      FAIL    ====================== >> %YOUR_FILES_PATH%\quiz%QUIZ%\log_%QUIZ%.txt
 )
 echo.
@@ -203,11 +209,11 @@ if "%QUIZ%"=="8" (
     gcc %YOUR_FILES_PATH%\quiz%QUIZ%\quiz%QUIZ%.c -o %OBJ_PATH%\quiz%QUIZ%\quiz%QUIZ%.exe 2>compile_error.txt
 )
 
-echo ================= Quiz %QUIZ% ====================
+call :print "================= Quiz %QUIZ% ====================" Yellow 0
 
 if %errorlevel% neq 0 (
-    echo Debug: Compilation failed
-    echo Debug: Compile error:
+    call :print Debug: Compilation failed Red 0
+    call :print Debug: Compile error: Red 0
     type compile_error.txt
     if exist compile_error.txt del compile_error.txt
     exit /b 1

@@ -255,19 +255,18 @@ quiz9:
 quiz10:
 	@$(TEST_SCRIPT) 10
 
-run_test_all:
-	@echo "Running all quiz tests on $(DETECTED_OS)"
-ifeq ($(DETECTED_OS),Windows)
-	@for /l %%i in (1,1,10) do ( \
-		echo Running quiz %%i && \
-		$(TEST_SCRIPT) %%i \
-	)
-else
-	@for i in $$(seq 1 10); do \
-		echo "Running quiz $$i"; \
-		$(MAKE) -s quiz$$i; \
-	done
-endif
+run_test_all: quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10
+# ifeq ($(DETECTED_OS),Windows)
+# 	@for /l %%i in (1,1,10) do ( \
+# 		echo Running quiz %%i && \
+# 		$(TEST_SCRIPT) %%i \
+# 	)
+# else
+# 	@for i in $$(seq 1 10); do \
+# 		echo "Running quiz $$i"; \
+# 		$(MAKE) -s quiz$$i; \
+# 	done
+# endif
 
 # Help target
 help:

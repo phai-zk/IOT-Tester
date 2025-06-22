@@ -33,7 +33,7 @@ CZ_PATH = ${FILES_PATH}${PATH_SEP}CZ
 
 EZ_FILES = triangle_area.c compare.c grading.c
 MD_FILES = multi_table.c prime_number.c pern_star.c
-CZ_FILES = minesweeper.c tower_hanoi.c b_tree_sort.c
+CZ_FILES = minesweeper.c tower_hanoi.c 
 
 LIB_PATH = utils
 LIB = ${LIB_PATH}${PATH_SEP}utils.a
@@ -41,8 +41,8 @@ SPECIAL_TEST8_PATH = utils${PATH_SEP}special_test${PATH_SEP}quiz8_test.c
 DOCUMENTATION_PATH = doc${PATH_SEP}document_
 QUIZ_PATH = quiz${PATH_SEP}quiz
 
-.PHONY: all clean init setup reset recreate_quiz quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10 run_test_all os_info hint6 hint7 hint8 hint9 hint10
-.SILENT: run_test_all quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10
+.PHONY: all clean init setup reset recreate_quiz quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 run_test_all os_info hint6 hint7 hint8 hint9 hint10
+.SILENT: run_test_all quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9
 
 os_info:
 	@echo "Detected OS: $(DETECTED_OS)"
@@ -62,7 +62,6 @@ ifeq ($(DETECTED_OS),Windows)
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz7 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz8 2>nul
 	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz9 2>nul
-	@$(MKDIR) $(OBJ_PATH)$(PATH_SEP)quiz10 2>nul
 
 	@gcc $(EZ_PATH)$(PATH_SEP)triangle_area.c -o $(OBJ_PATH)$(PATH_SEP)quiz2$(PATH_SEP)test_quiz2$(EXE_EXT)
 	@echo Compile Quiz 2 files complete
@@ -80,8 +79,6 @@ ifeq ($(DETECTED_OS),Windows)
 	@echo Compile Quiz 8 files complete
 	@gcc $(CZ_PATH)$(PATH_SEP)tower_hanoi.c -o $(OBJ_PATH)$(PATH_SEP)quiz9$(PATH_SEP)test_quiz9$(EXE_EXT)
 	@echo Compile Quiz 9 files complete
-	@gcc $(CZ_PATH)$(PATH_SEP)b_tree_sort.c -o $(OBJ_PATH)$(PATH_SEP)quiz10$(PATH_SEP)test_quiz10$(EXE_EXT)
-	@echo Compile Quiz 10 files complete
 else
 	@i=1; \
 	echo "==== Running compile quiz files (Unix) ====" \
@@ -115,7 +112,7 @@ endif
 init: setup
 ifeq ($(DETECTED_OS),Windows)
 	@echo ==== Running setup workspace files (Windows) ====
-	@for /l %%i in (1,1,10) do ( \
+	@for /l %%i in (1,1,9) do ( \
 		$(MKDIR) $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i 2>nul && \
 		$(CP) $(QUIZ_PATH)%%i.c $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)quiz%%i.c >nul && \
 		$(CP) $(DOCUMENTATION_PATH)%%i.txt $(YOUR_FILES_PATH)$(PATH_SEP)quiz%%i$(PATH_SEP)testcase.txt >nul && \
@@ -123,7 +120,7 @@ ifeq ($(DETECTED_OS),Windows)
 	)
 else
 	@echo "==== Running setup workspace files (Unix) ===="; \
-	for i in $$(seq 1 10); do \
+	for i in $$(seq 1 9); do \
 		$(MKDIR) $(YOUR_FILES_PATH)/quiz$$i; \
 		$(CP) $(QUIZ_PATH)$$i.c $(YOUR_FILES_PATH)/quiz$$i/quiz$$i.c; \
 		$(CP) $(DOCUMENTATION_PATH)$$i.txt $(YOUR_FILES_PATH)/quiz$$i/testcase.txt; \
@@ -252,10 +249,7 @@ quiz8:
 quiz9:
 	@$(TEST_SCRIPT) 9
 
-quiz10:
-	@$(TEST_SCRIPT) 10
-
-run_test_all: quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9 quiz10
+run_test_all: quiz1 quiz2 quiz3 quiz4 quiz5 quiz6 quiz7 quiz8 quiz9
 
 hint6:
 	@echo "==== Hint for Quiz 6 ===="
@@ -327,8 +321,6 @@ hint9:
 	@echo "จากนั้นสลับบทบาทของ TMP, DES, SRC"
 	@echo "จากนั้น pop SRC(อดีต TMP) ไปที่, DES(อดีต TMP)"
 
-hint10:
-	@echo "==== Hint for Quiz 10 ===="
 
 manual:
 	@echo "How to use this program"
@@ -339,10 +331,10 @@ manual:
 		echo "2. Change YOUR_FILES_PATH in the run_test.sh to your own path" \
 	fi; \
 	@echo "3. Run 'make init' to setup the workspace and copy the quiz files"
-	@echo "4. Run 'make quiz1-quiz10' to run the individual quiz tests"
+	@echo "4. Run 'make quiz1-quiz9' to run the individual quiz tests"
 	@echo "5. Run 'make run_test_all' to run all quiz tests"
 	@echo "6. Run 'make recreate_quiz n=X' to recreate a quiz if your remove the quiz files"
-	@echo "7. Run 'make hintX' to get hint of a quiz (for quiz 6-10)"
+	@echo "7. Run 'make hintX' to get hint of a quiz (for quiz 6-9)"
 	@echo "8. Run 'make help' to show this help message"
 
 # Help target
@@ -358,8 +350,8 @@ help:
 	@echo "  reset         - Clean and reinitialize everything"
 	@echo "  update_lib    - Update utility library"
 	@echo "  recompile     - Recompile test programs"
-	@echo "  quiz1-quiz10  - Run individual quiz tests"
-	@echo "  hint6-hint10  - Giving a hint for that quiz"
+	@echo "  quiz1-quiz9  - Run individual quiz tests"
+	@echo "  hint6-hint9  - Giving a hint for that quiz"
 	@echo "  run_test_all  - Run all quiz tests"
 	@echo "  recreate_quiz - Recreate specific quiz (usage: make recreate_quiz n=X)"
 	@echo "  help          - Show this help message"
